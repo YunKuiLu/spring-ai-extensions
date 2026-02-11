@@ -20,13 +20,13 @@
         <groupId>com.alibaba.cloud.ai</groupId>
         <artifactId>spring-ai-alibaba-extensions</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-ai-alibaba-autoconfigure-arms-observation</artifactId>
+    <artifactId>spring-ai-alibaba-autoconfigure-nacos-prompt</artifactId>
 
-    <name>Spring AI Alibaba Arms Observation Autoconfiguration</name>
-    <description>Spring AI Alibaba ARMS Observation Autoconfiguration</description>
+    <name>Spring AI Alibaba Nacos Prompt Autoconfiguration</name>
+    <description>Spring AI Alibaba Nacos Prompt Autoconfiguration</description>
     <url>https://github.com/alibaba/spring-ai-alibaba</url>
 
     <licenses>
@@ -55,14 +55,7 @@
     <dependencies>
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-dashscope</artifactId>
-            <version>${revision}</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-observation-extension</artifactId>
+            <artifactId>spring-ai-alibaba-prompt-nacos</artifactId>
             <version>${revision}</version>
         </dependency>
 
