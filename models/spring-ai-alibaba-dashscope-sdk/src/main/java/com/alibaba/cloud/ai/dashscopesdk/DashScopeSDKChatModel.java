@@ -16,9 +16,34 @@
 
 package com.alibaba.cloud.ai.dashscopesdk;
 
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.ChatOptions;
+import org.springframework.ai.chat.prompt.Prompt;
+import reactor.core.publisher.Flux;
+
 /**
  * @author yuluo
  * @author <a href="mailto:yuluo08290126@gmail.com">yuluo</a>
  */
 
-public class DashScopeSDKChatModel {}
+public class DashScopeSDKChatModel implements ChatModel {
+
+    @Override
+    public ChatResponse call(Prompt prompt) {
+
+        return null;
+    }
+
+    @Override
+    public ChatOptions getDefaultOptions() {
+
+        return ChatModel.super.getDefaultOptions();
+    }
+
+    @Override
+    public Flux<ChatResponse> stream(Prompt prompt) {
+
+        return ChatModel.super.stream(prompt);
+    }
+}
