@@ -192,6 +192,7 @@
         <module>rag/spring-ai-alibaba-rag</module>
         <module>observation/spring-ai-alibaba-observation</module>
         <module>spring-ai-alibaba-extensions-bom</module>
+        <module>models/spring-ai-alibaba-dashscope-sdk</module>
     </modules>
 
     <scm>
