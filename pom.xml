@@ -95,7 +95,7 @@
         <module>auto-configurations/models/spring-ai-alibaba-autoconfigure-dashscope</module>
 
         <module>auto-configurations/models/chat/memory/spring-ai-alibaba-autoconfigure-model-chat-memory</module>
-        <module>auto-configurations/models/chat/memory/spring-ai-alibaba-autoconfigure-model-chat-memory-long</module>
+        <module>auto-configurations/models/chat/memory/spring-ai-alibaba-autoconfigure-model-chat-memory-mem0</module>
         <module>auto-configurations/models/chat/memory/repository/spring-ai-alibaba-autoconfigure-model-chat-memory-repository-elasticsearch</module>
         <module>auto-configurations/models/chat/memory/repository/spring-ai-alibaba-autoconfigure-model-chat-memory-repository-jdbc</module>
         <module>auto-configurations/models/chat/memory/repository/spring-ai-alibaba-autoconfigure-model-chat-memory-repository-memcached</module>
@@ -121,7 +121,7 @@
         <module>spring-boot-starters/spring-ai-alibaba-starter-dashscope</module>
 
         <module>spring-boot-starters/spring-ai-alibaba-starter-model-chat-memory</module>
-        <module>spring-boot-starters/spring-ai-alibaba-starter-model-chat-memory-long</module>
+        <module>spring-boot-starters/spring-ai-alibaba-starter-model-chat-memory-mem0</module>
         <module>spring-boot-starters/spring-ai-alibaba-starter-model-chat-memory-repository-elasticsearch</module>
         <module>spring-boot-starters/spring-ai-alibaba-starter-model-chat-memory-repository-jdbc</module>
         <module>spring-boot-starters/spring-ai-alibaba-starter-model-chat-memory-repository-memcached</module>
@@ -281,6 +281,9 @@
         <opentelemetry.version>1.38.0</opentelemetry.version>
         <a2a-sdk.version>0.2.5.Beta2</a2a-sdk.version>
 
+        <!-- JSpecify Version -->
+        <jspecify.version>1.0.0</jspecify.version>
+
         <!-- CheckStyle Plugin -->
         <disable.checks>false</disable.checks>
 
@@ -414,7 +417,7 @@
             <dependency>
                 <groupId>org.jspecify</groupId>
                 <artifactId>jspecify</artifactId>
-                <version>1.0.0</version>
+                <version>${jspecify.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
