@@ -88,6 +88,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * {@link ChatModel} implementation for {@literal Alibaba DashScope} backed by
@@ -566,17 +567,16 @@ public class DashScopeChatModel implements ChatModel {
 					Assert.isTrue(response.name() != null, "ToolResponseMessage must have a name");
 				});
 
-				return toolMessage.getResponses()
-					.stream()
-					.map(tr -> {
-						Object content = tr.responseData();
-						if (cacheControl != null) {
-							content = List.of(new MediaContent(tr.responseData(), cacheControl));
-						}
-						return new ChatCompletionMessage(content, ChatCompletionMessage.Role.TOOL, tr.name(), tr.id(),
-								null, null, null, null, null, null);
-					})
-					.toList();
+				List<ToolResponseMessage.ToolResponse> responses = toolMessage.getResponses();
+				return IntStream.range(0, responses.size()).mapToObj(i -> {
+					ToolResponseMessage.ToolResponse tr = responses.get(i);
+					Object content = tr.responseData();
+					if (cacheControl != null && i == responses.size() - 1) {
+						content = List.of(new MediaContent(tr.responseData(), cacheControl));
+					}
+					return new ChatCompletionMessage(content, ChatCompletionMessage.Role.TOOL, tr.name(), tr.id(), null,
+							null, null, null, null, null);
+				}).toList();
 			}
 			else {
 				throw new IllegalArgumentException("Unsupported message type: " + message.getMessageType());

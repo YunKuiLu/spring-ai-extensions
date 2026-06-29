@@ -1230,18 +1230,19 @@ class DashScopeChatModelTests {
         assertThat(firstToolMessage.role()).isEqualTo(ChatCompletionMessage.Role.TOOL);
         assertThat(firstToolMessage.name()).isEqualTo("get_weather");
         assertThat(firstToolMessage.toolCallId()).isEqualTo("call-1");
-        assertThat(firstToolMessage.rawContent()).isInstanceOf(List.class);
-
-        @SuppressWarnings("unchecked")
-        List<MediaContent> firstContentList = (List<MediaContent>) firstToolMessage.rawContent();
-
-        assertThat(firstContentList.get(0).text()).isEqualTo("{\"city\":\"HZ\"}");
-        assertThat(firstContentList.get(0).cacheControl()).containsEntry("type", "ephemeral");
+        assertThat(firstToolMessage.rawContent()).isInstanceOf(String.class);
+        assertThat(firstToolMessage.rawContent()).isEqualTo("{\"city\":\"HZ\"}");
 
         var secondToolMessage = request.input().messages().get(1);
         assertThat(secondToolMessage.name()).isEqualTo("get_time");
         assertThat(secondToolMessage.toolCallId()).isEqualTo("call-2");
         assertThat(secondToolMessage.rawContent()).isInstanceOf(List.class);
+
+        @SuppressWarnings("unchecked")
+        List<MediaContent> secondContentList = (List<MediaContent>) secondToolMessage.rawContent();
+
+        assertThat(secondContentList.get(0).text()).isEqualTo("{\"timezone\":\"Asia/Shanghai\"}");
+        assertThat(secondContentList.get(0).cacheControl()).containsEntry("type", "ephemeral");
     }
 
     @Test
