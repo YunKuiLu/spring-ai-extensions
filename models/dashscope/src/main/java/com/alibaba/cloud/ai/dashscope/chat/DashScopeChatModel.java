@@ -528,6 +528,12 @@ public class DashScopeChatModel implements ChatModel {
 			}
 			else if (message.getMessageType() == MessageType.ASSISTANT) {
 				var assistantMessage = (AssistantMessage) message;
+				Object content = assistantMessage.getText();
+				Map<String, String> cacheControl = extractCacheControl(message);
+				if (cacheControl != null) {
+					content = List.of(new MediaContent(assistantMessage.getText(), cacheControl));
+				}
+
 				List<ToolCall> toolCalls = null;
 				if (!CollectionUtils.isEmpty(assistantMessage.getToolCalls())) {
 					toolCalls = assistantMessage.getToolCalls().stream().map(toolCall -> {
@@ -548,11 +554,12 @@ public class DashScopeChatModel implements ChatModel {
 					}
 				}
 
-				return List.of(new DashScopeApiSpec.ChatCompletionMessage(assistantMessage.getText(),
+				return List.of(new DashScopeApiSpec.ChatCompletionMessage(content,
 						ChatCompletionMessage.Role.ASSISTANT, null, null, toolCalls, null, partial, null, null, null));
 			}
 			else if (message.getMessageType() == MessageType.TOOL) {
 				ToolResponseMessage toolMessage = (ToolResponseMessage) message;
+				Map<String, String> cacheControl = extractCacheControl(message);
 
 				toolMessage.getResponses().forEach(response -> {
 					Assert.isTrue(response.id() != null, "ToolResponseMessage must have an id");
@@ -561,8 +568,14 @@ public class DashScopeChatModel implements ChatModel {
 
 				return toolMessage.getResponses()
 					.stream()
-					.map(tr -> new ChatCompletionMessage(tr.responseData(), ChatCompletionMessage.Role.TOOL, tr.name(),
-							tr.id(), null, null, null, null, null, null))
+					.map(tr -> {
+						Object content = tr.responseData();
+						if (cacheControl != null) {
+							content = List.of(new MediaContent(tr.responseData(), cacheControl));
+						}
+						return new ChatCompletionMessage(content, ChatCompletionMessage.Role.TOOL, tr.name(), tr.id(),
+								null, null, null, null, null, null);
+					})
 					.toList();
 			}
 			else {
